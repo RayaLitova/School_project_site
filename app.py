@@ -2,14 +2,17 @@ from flask import Flask, request, render_template
 import json
 app = Flask(__name__)
 
+#-----------start---------------
 @app.route('/')
 def index():
     return render_template('voting.html')
 
+#-----------go to add_new.html----------
 @app.route('/add_new', methods=['POST'])
 def add_new():
     return render_template('add_new.html')
 
+#----------add new project-----------
 @app.route('/add', methods=['POST'])
 def add_newName():
     f=open('names.txt','r')
@@ -24,8 +27,14 @@ def add_newName():
         f.write(json.dumps(new))
         f.close()
     return render_template('voting.html', name=name)
-        
-    
-    
+
+#--------------print names-----------      
+@app.route('/print', methods=['POST'])
+def print_names():
+    f=open('names.txt','r')
+    return render_template('voting.html', projects=f.read())
+    f.close()
+
+#----------------------------------  
 if __name__=='__main__':
     app.run()
