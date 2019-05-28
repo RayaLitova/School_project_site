@@ -15,8 +15,7 @@ def add_newName():
     f=open('names.txt','r')
     if request.form['name'] in f.read():
         f.close()
-        request.form['name']='zaeto ime pedal'
-        add_new()
+        return '''<h1>imeto e zaeto, a ti si pedal</h1>'''
     else:
         f.close()
         name=request.form['name']
@@ -24,6 +23,7 @@ def add_newName():
         new={name: 0}
         f.write(json.dumps(new))
         f.close()
+    return render_template('voting.html', name=name)
         
     
     
