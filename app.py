@@ -29,10 +29,11 @@ def add_newName():
     return render_template('voting.html', name=name)
 
 #--------------print names-----------      
-@app.route('/print', methods=['POST'])
+@app.route('/print_names')
 def print_names():
     f=open('names.txt','r')
-    return render_template('voting.html', projects=f.read())
+    projects=f.read()
+    return render_template('voting.html', projects=json.dumps(f.read()))
     f.close()
 
 #----------------------------------  
