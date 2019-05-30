@@ -1,11 +1,14 @@
 from flask import Flask, request, render_template
 import json
+from flask import Markup
 app = Flask(__name__)
 
 #-----------start---------------
 @app.route('/')
 def index():
-    return render_template('voting.html')
+    f=open('names.txt', 'r')
+    return render_template('voting.html', projects=f.read())
+    f.close()
 
 #-----------go to add_new.html----------
 @app.route('/add_new', methods=['POST'])
@@ -26,14 +29,8 @@ def add_newName():
         new={name: 0}
         f.write(json.dumps(new))
         f.close()
-    return render_template('voting.html', name=name)
-
-#--------------print names-----------      
-@app.route('/print_names')
-def print_names():
-    f=open('names.txt','r')
-    projects=f.read()
-    return render_template('voting.html', projects=json.dumps(f.read()))
+    f=open('names.txt', 'r')
+    return render_template('voting.html', name=name, projects=f.read())
     f.close()
 
 #----------------------------------  
