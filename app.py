@@ -3,36 +3,46 @@ import json
 from flask import Markup
 app = Flask(__name__)
 
-#-----------start---------------
+
+# -----------start---------------
 @app.route('/')
 def index():
-    f=open('names.txt', 'r')
-    return render_template('voting.html', projects=f.read())
-    f.close()
+    with open("names.json", "r") as read_file:
+        data = json.load(read_file)
+    return render_template('voting.html', projects=data['projects'])
 
-#-----------go to add_new.html----------
+# -----------go to add_new.html----------
+
+
 @app.route('/add_new', methods=['POST'])
 def add_new():
     return render_template('add_new.html')
 
-#----------add new project-----------
+# ----------add new project-----------
+
+
 @app.route('/add', methods=['POST'])
 def add_newName():
-    f=open('names.txt','r')
-    if request.form['name'] in f.read():
-        f.close()
+
+    with open("names.json", "r") as read_file:
+        data = json.load(read_file)
+
+    if request.form['name'] in data:
         return '''<h1>imeto e zaeto, a ti si pedal</h1>'''
     else:
-        f.close()
-        name=request.form['name']
-        f=open('names.txt','a')
-        new={name: 0}
-        f.write(json.dumps(new))
-        f.close()
-    f=open('names.txt', 'r')
-    return render_template('voting.html', name=name, projects=f.read())
-    f.close()
+        name = request.form['name']
+        data['projects'].append({
+            'name': name,
+            'description': '',
+            'value': 0
+        })
 
-#----------------------------------  
-if __name__=='__main__':
+    with open('data.txt', 'w') as outfile:
+        json.dump(data, outfile)
+
+    return render_template('voting.html', name=name, projects=data['projects'])
+
+
+# ----------------------------------
+if __name__ == '__main__':
     app.run()
