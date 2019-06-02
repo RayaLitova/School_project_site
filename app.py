@@ -1,48 +1,44 @@
-from flask import Flask, request, render_template
-import json
-from flask import Markup
+from flask import Flask, render_template, request
+import os
 app = Flask(__name__)
 
+poll_data = {
+    'question': 'Vote for your favourite team ^^',
+    'fields': ['otbor1', 'otborPesho', 'otborPraskova', 'Nqna', 'uwu']
+}
 
-# -----------start---------------
+filename = 'data.txt'
+
+
 @app.route('/')
-def index():
-    with open("names.json", "r") as read_file:
-        data = json.load(read_file)
-    return render_template('voting.html', projects=data['projects'])
-
-# -----------go to add_new.html----------
+def root():
+    return render_template('poll.html', data=poll_data)
 
 
-@app.route('/add_new', methods=['POST'])
-def add_new():
-    return render_template('add_new.html')
+@app.route('/poll')
+def poll():
+    vote = request.args.get('field')
 
-# ----------add new project-----------
+    out = open(filename, 'a')
+    out.write(vote + '\n')
+    out.close()
 
-
-@app.route('/add', methods=['POST'])
-def add_newName():
-
-    with open("names.json", "r") as read_file:
-        data = json.load(read_file)
-
-    if request.form['name'] in data:
-        return '''<h1>imeto e zaeto, a ti si pedal</h1>'''
-    else:
-        name = request.form['name']
-        data['projects'].append({
-            'name': name,
-            'description': '',
-            'value': 0
-        })
-
-    with open('data.txt', 'w') as outfile:
-        json.dump(data, outfile)
-
-    return render_template('voting.html', name=name, projects=data['projects'])
+    return render_template('thankyou.html', data=vote)
 
 
-# ----------------------------------
-if __name__ == '__main__':
-    app.run()
+@app.route('/results')
+def show_results():
+    votes = {}
+    for f in poll_data['fields']:
+        votes[f] = 0
+
+    f = open(filename, 'r')
+    for line in f:
+        vote = line.rstrip("\n")
+        votes[vote] += 1
+
+    return render_template('results.html', data=poll_data, votes=votes)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>{{ data.question }}</title>
+</head>
+
+<body>
+
+    <div class="topnav">
+        <a class="active" href="/">Home</a>
+        <a href="results">Results</a>
+    </div>
+
+    <h1>Results for</h1>
+    {{ data.question }}
+
+    <ul>
+        {% for e in votes %}
+        <li>{{ e }} -> {{ votes[e] }}</li>
+        {% endfor %}
+    </ul>
+
+</body>
+
+</html>
