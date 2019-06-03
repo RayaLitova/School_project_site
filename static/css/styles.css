@@ -4,13 +4,13 @@ body{
 
 #navbar {
   overflow: hidden;
-  background-color: #333;
+  background-color: #ff5baa;
 }
 
 #navbar a {
   float: left;
   display: block;
-  color: #f2f2f2;
+  color: black;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -18,8 +18,8 @@ body{
 }
 
 #navbar a:hover {
-  background-color: #ddd;
-  color: black;
+  background-color: #f73392;
+  color: white;
 }
 
 .sticky {

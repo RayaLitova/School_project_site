@@ -23,3 +23,5 @@ otborPesho
 otborPesho
 Nqna
 Nqna
+Nqna
+otbor1

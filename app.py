@@ -32,9 +32,14 @@ def root():
     else:
         f.close()
         f=open(ip,'a')
-        f.write(request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
-        f.close
-        return render_template('poll.html', data=poll_data)
+        if request.environ.get('HTTP_X_REAL_IP', request.remote_addr)=='127.0.0.1':
+            return render_template('poll.html', data=poll_data)
+            f.close()
+        else:
+            f.write(request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
+            f.close()
+            return render_template('poll.html', data=poll_data)
+
 
 @app.route('/add_temp')
 def add_temp():
