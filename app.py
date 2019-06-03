@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import os
 app = Flask(__name__)
 filename = 'data.txt'
-
+ip='ip.txt'
 x=[]
 name=''
 f=open(filename,'r')
@@ -25,7 +25,16 @@ poll_data = {
 
 @app.route('/')
 def root():
-    return render_template('poll.html', data=poll_data)
+    f=open(ip,'r')
+    if request.environ.get('HTTP_X_REAL_IP', request.remote_addr) in f.read():
+        f.close
+        return "You can't vote two times form one devise!!"
+    else:
+        f.close()
+        f=open(ip,'a')
+        f.write(request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
+        f.close
+        return render_template('poll.html', data=poll_data)
 
 @app.route('/add_temp')
 def add_temp():
