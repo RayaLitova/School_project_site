@@ -1,18 +1,21 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 
 <head>
-  <title>{{ data.question }}</title>
+  <title>Thank you ^^</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
 </head>
 
 <body>
-  <div class="topnav">
-    <a class="active" href="/">Home</a>
-    <a href="results">Results</a>
-  </div>
+	<div id="navbar">
+	    <a href="/">Home</a>
+		<a href="results">Results</a>
+		<a href="/add_temp">Add new</a>
+	</div>
+ 
 
-  <h1>Thank you for submitting your vote for</h1>
-  {{ data }}
+  <h1>Thank you for submitting your vote for {{ data }}</h1>
+  
 
 </body>
 

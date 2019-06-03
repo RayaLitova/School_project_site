@@ -1,23 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 
 <head>
-    <title>{{ data.question }}</title>
+    <title>Results</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
 </head>
 
 <body>
+	<div id="navbar">
+	  <a href="/">Home</a>
+	  <a href="/add_temp">Add new</a>
+	</div>
+    
 
-    <div class="topnav">
-        <a class="active" href="/">Home</a>
-        <a href="results">Results</a>
-    </div>
-
-    <h1>Results for</h1>
-    {{ data.question }}
+    <h1>Results</h1>
 
     <ul>
         {% for e in votes %}
-        <li>{{ e }} -> {{ votes[e] }}</li>
+        <li>{{ e }} -- {{ votes[e] }}</li>
         {% endfor %}
     </ul>
 

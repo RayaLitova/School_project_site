@@ -3,15 +3,14 @@
 
 <head>
     <title>{{ data.question }}</title>
-
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
 </head>
 
 <body>
-
-    <div class="topnav">
-        <a class="active" href="/">Home</a>
-        <a href="results">Results</a>
-    </div>
+	<div id="navbar">
+	  <a href="results">Results</a>
+	  <a href="/add_temp">Add new</a>
+	</div>
 
     <h1>{{ data.question }}</h1>
     <form action="/poll">
@@ -20,6 +19,18 @@
         {% endfor %}
         <input type="submit" value="Vote" />
     </form>
+	
+	<br><br> <br> <br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br>
+	
+	<script src='../static/js/navbar.js'></script>
 </body>
 
 </html>

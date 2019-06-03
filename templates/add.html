@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Add new</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
+	</head>
+	<body>
+		<div id="navbar">
+			<a href="/">Home</a>
+			<a href="results">Results</a>
+		</div>
+		<br>
+		<form action='add_new' method='POST'>
+			<input type='text' placeholder='Name' name='addnew'>
+			<input type="submit" value="Add" />
+		</form>
+	</body>
+</html>
+	
+	
