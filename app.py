@@ -22,29 +22,22 @@ poll_data = {
     'fields': x
 }
 
-
+#-----------start-----------------
 @app.route('/')
 def root():
     f=open(ip,'r')
     if request.environ.get('HTTP_X_REAL_IP', request.remote_addr) in f.read():
-        f.close
+        f.close()
         return "You can't vote two times form one devise!!"
     else:
-        f.close()
-        f=open(ip,'a')
-        if request.environ.get('HTTP_X_REAL_IP', request.remote_addr)=='127.0.0.1':
-            return render_template('poll.html', data=poll_data)
-            f.close()
-        else:
-            f.write(request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
-            f.close()
-            return render_template('poll.html', data=poll_data)
+        return render_template('poll.html', data=poll_data)
 
-
+#-------------add.html-----------
 @app.route('/add_temp')
 def add_temp():
     return render_template('add.html')
 
+#-----------vote----------------
 @app.route('/poll')
 def poll():
     vote = request.args.get('field')
@@ -52,9 +45,14 @@ def poll():
     out = open(filename, 'a')
     out.write(vote + '\n')
     out.close()
-
+    f=open(ip,'r')
+    f.close()
+    f=open(ip,'a')
+    f.write(request.environ.get('HTTP_X_REAL_IP', request.remote_addr + '\n'))
+    f.close()
     return render_template('thankyou.html', data=vote)
-    
+
+#-----------------results----------------------   
 @app.route('/results')
 def show_results():
     votes = {}
@@ -68,21 +66,22 @@ def show_results():
 
     return render_template('results.html', data=poll_data, votes=votes)
 
-@app.route('/add_new', methods=['POST'])
+#-------------add------------------------------------------
+@app.route('/add_new', methods=["POST"])
 def add_new():
     f = open(filename, 'r')
-    if request.form['add'] in f.read():
+    f.close()
+    poll_data['fields'].append(request.form['addnew'])
+    f=open(filename,'a')
+    f.write(request.form['addnew']+'\n')
+    f.close()
+    f=open('ip.txt','r')
+    if request.environ.get('HTTP_X_REAL_IP', request.remote_addr) in f.read():
         f.close()
-        return 'imeto e zaeto a ti si pedal <3'
+        return "You can't vote two times form one devise!!"
     else:
-        f.close()
-        poll_data['fields'].append(request.form['addnew'])
-        f=open(filename,'a')
-        f.write(request.form['addnew'])
-        f.close()
-        return "Successfully added ^^"
+        return render_template('poll.html', data=poll_data)
 
-
-
+#----------------------------------------------------------------
 if __name__ == "__main__":
-    app.run()
+    app.run(host= '0.0.0.0') 
