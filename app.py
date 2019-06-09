@@ -1,20 +1,23 @@
 from flask import Flask, render_template, request
 import os
+from flask import request
+from flask import jsonify
+
 app = Flask(__name__)
 filename = 'data.txt'
-ip='ip.txt'
-x=[]
-name=''
-f=open(filename,'r')
+ip = 'ip.txt'
+x = []
+name = ''
+f = open(filename, 'r')
 for item in f.read():
-    if '\n'==item:
+    if '\n' == item:
         if name in x:
-            name=''
+            name = ''
         else:
             x.append(name)
-            name=''
+            name = ''
     else:
-        name+=item
+        name += item
 f.close()
 
 poll_data = {
@@ -22,37 +25,48 @@ poll_data = {
     'fields': x
 }
 
-#-----------start-----------------
+# -----------start-----------------
+
+
 @app.route('/')
 def root():
-    f=open(ip,'r')
+    f = open(ip, 'r')
     if request.environ.get('HTTP_X_REAL_IP', request.remote_addr) in f.read():
         f.close()
-        return "You can't vote two times form one devise!!"
+        return "You can't vote two times form one device!!"
     else:
         return render_template('poll.html', data=poll_data)
 
-#-------------add.html-----------
+# -------------add.html-----------
+
+
 @app.route('/add_temp')
 def add_temp():
     return render_template('add.html')
 
-#-----------vote----------------
+# -----------vote----------------
+
+
 @app.route('/poll')
 def poll():
     vote = request.args.get('field')
 
+    if vote is None:
+        return render_template('poll.html', data=poll_data)
+
     out = open(filename, 'a')
     out.write(vote + '\n')
     out.close()
-    f=open(ip,'r')
+    f = open(ip, 'r')
     f.close()
-    f=open(ip,'a')
+    f = open(ip, 'a')
     f.write(request.environ.get('HTTP_X_REAL_IP', request.remote_addr + '\n'))
     f.close()
     return render_template('thankyou.html', data=vote)
 
-#-----------------results----------------------   
+# -----------------results----------------------
+
+
 @app.route('/results')
 def show_results():
     votes = {}
@@ -66,22 +80,30 @@ def show_results():
 
     return render_template('results.html', data=poll_data, votes=votes)
 
-#-------------add------------------------------------------
+# -------------add------------------------------------------
+
+
 @app.route('/add_new', methods=["POST"])
 def add_new():
     f = open(filename, 'r')
+    a = request.form['addnew']
+    data = f.read()
     f.close()
+    if a in data:
+        return render_template('poll.html', data=poll_data)
+
     poll_data['fields'].append(request.form['addnew'])
-    f=open(filename,'a')
+    f = open(filename, 'a')
     f.write(request.form['addnew']+'\n')
     f.close()
-    f=open('ip.txt','r')
+    f = open('ip.txt', 'r')
     if request.environ.get('HTTP_X_REAL_IP', request.remote_addr) in f.read():
         f.close()
-        return "You can't vote two times form one devise!!"
+        return "You can't vote two times from one device!!"
     else:
         return render_template('poll.html', data=poll_data)
 
-#----------------------------------------------------------------
+
+# ----------------------------------------------------------------
 if __name__ == "__main__":
-    app.run(host= '0.0.0.0') 
+    app.run(host='0.0.0.0')
