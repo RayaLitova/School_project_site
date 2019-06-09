@@ -4,16 +4,18 @@
 		<title>Add new</title>
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
 	</head>
-	<body>
+	<body style='background-color: #4286f4;'>
 		<div id="navbar">
 			<a href="/">Home</a>
 			<a href="results">Results</a>
+			<a href="Settings()">Settings</a>
 		</div>
 		<br>
 		<form action='/add_new' method='POST'>
 			<input type='text' placeholder='Name' name='addnew'>
 			<input type="submit" value="Add" />
 		</form>
+		<script src="../static/js/settings.js"></script>
 	</body>
 </html>
 	

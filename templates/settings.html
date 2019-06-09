@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Settings</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
+	</head>
+	<body style='background-color: #4286f4;'>
+		<div id="navbar" display='Hidden()'>
+			<a href="/">Home</a>
+			<a href="results">Results</a>
+			<a href="/add_temp">Add new</a>
+		</div>
+	
+		Navigation bar <input type='checkbox' id='navbar_display' checked>
+		Radio button <input type='checkbox' id='vote_button' checked>
+		Navbar color: <input type="color" name="navbar_color" value="#ff5baa">
+		Navbar color on hover: <input type="color" name="navbar_color_hv" value="#f73392">
+		Text color: <input type="color" name="text_color" value="#000000">
+		Page color: <input type="color" name="navbar_color_hv" value="#4286f4">
+
+		<script src="../static/js/settings.js"></script>
+	</body>
+</html>
