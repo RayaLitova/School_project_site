@@ -1,5 +1,4 @@
 
-
 #navbar {
   overflow: hidden;
   background-color: #ff5baa;
@@ -16,10 +15,6 @@
   position: sticky;
 }
 
-#navbar a:hover {
-  background-color: #f73392;
-  color: white;
-}
 
 .sticky {
   position: fixed;

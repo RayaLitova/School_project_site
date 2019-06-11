@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import os
 from flask import request
 from flask import jsonify
+import json
 
 app = Flask(__name__)
 filename = 'data.txt'
@@ -26,8 +27,6 @@ poll_data = {
 }
 
 # -----------start-----------------
-
-
 @app.route('/')
 def root():
     f = open(ip, 'r')
@@ -35,7 +34,8 @@ def root():
         f.close()
         return "You can't vote two times form one device!!"
     else:
-        return render_template('poll.html', data=poll_data)
+        f.close()
+        return render_template('settings.html')
 
 # -------------add.html-----------
 
@@ -43,6 +43,18 @@ def root():
 @app.route('/add_temp')
 def add_temp():
     return render_template('add.html')
+
+#------------settings.html--------
+@app.route('/home')
+def home():
+    f = open(ip, 'r')
+    if request.environ.get('HTTP_X_REAL_IP', request.remote_addr) in f.read():
+        f.close()
+        return "You can't vote two times form one device!!"
+    else:
+        f.close()
+       return render_template('poll.html', data=poll_data)
+
 
 # -----------vote----------------
 

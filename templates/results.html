@@ -6,21 +6,27 @@
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
 </head>
 
-<body style='background-color: #4286f4;'>
+<body>
 	<div id="navbar">
-	  <a href="/">Home</a>
+	  <a href="/home">Home</a>
 	  <a href="/add_temp">Add new</a>
 	</div>
     
 
-    <h1>Results</h1>
+    <h1 id='h1'>Results</h1>
 
-    <ul>
+    <ul id='results'>
         {% for e in votes %}
         <li>{{ e }} -- {{ votes[e] }}</li>
         {% endfor %}
     </ul>
+	<script>
+		document.body.style.backgroundColor = localStorage.page;
+		document.getElementById('navbar').style.backgroundColor=localStorage.nav_color;
+		document.getElementById('h1').style.color=localStorage.txt;
+		document.getElementById('results').style.color=localStorage.txt;
 
+	</script>
 </body>
 
 </html>

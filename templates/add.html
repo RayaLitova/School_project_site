@@ -4,18 +4,20 @@
 		<title>Add new</title>
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
 	</head>
-	<body style='background-color: #4286f4;'>
+	<body>
 		<div id="navbar">
-			<a href="/">Home</a>
-			<a href="results">Results</a>
-			<a href="Settings()">Settings</a>
+			<a href="/home">Home</a>
+			<a href="/results">Results</a>
 		</div>
 		<br>
 		<form action='/add_new' method='POST'>
 			<input type='text' placeholder='Name' name='addnew'>
 			<input type="submit" value="Add" />
 		</form>
-		<script src="../static/js/settings.js"></script>
+		<script>	
+			document.body.style.backgroundColor = localStorage.page;
+			document.getElementById('navbar').style.backgroundColor=localStorage.nav_color;
+		</script>
 	</body>
 </html>
 	

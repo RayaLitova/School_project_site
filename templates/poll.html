@@ -6,20 +6,39 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
 </head>
 
-<body style='background-color: #4286f4;'>
-	<div id="navbar" display='Navbar()'>
-	  <a href="results">Results</a>
+<body>
+	<div id="navbar">
+	  <a href="/results">Results</a>
 	  <a href="/add_temp">Add new</a>
 	</div>
 
-    <h1>{{ data.question }}</h1>
-    <form action="/poll">
+    <h1 id='h1'>{{ data.question }}</h1>
+    <form action="/poll" id='vote'>
         {% for e in data.fields %}
-        <input type="radio" name="field" value="{{ e }}"> {{ e }}<br>
+        <input type="radio" id='field' name="field" value="{{ e }}"> {{ e }}<br>
         {% endfor %}
         <input type="submit" value="Vote" />
     </form>
-    <script src='../static/js/navbar.js'></script>
+    <script>
+		window.onscroll = myFunction();
+
+		var navbar = document.getElementById("navbar");
+		var sticky = navbar.offsetTop;
+
+		function myFunction() {
+		  if (window.pageYOffset >= sticky) {
+			navbar.classList.add("sticky")
+		  } else {
+			navbar.classList.remove("sticky");
+		  }
+		}
+	</script>
+	<script>
+		document.body.style.backgroundColor = localStorage.page;
+		document.getElementById('navbar').style.backgroundColor=localStorage.nav_color;
+		document.getElementById('h1').style.color=localStorage.txt;
+		document.getElementById('vote').style.color=localStorage.txt;
+	</script>
 </body>
 
 </html>

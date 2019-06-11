@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<body style='background-color: #4286f4;'>
-		Navigation bar <input type='checkbox' id='navbar_display' checked>
+		Navigation bar <input type='color' id='test' value='#123123'>
 		<script>
-			funtion test(){
-				console.log(document.getElementById('navbar_display').checked)
-				};
-				test()
+			document.body.style.backgroundColor = document.getElementById('test').value;
+		</script>
 	</body>
 </html>
