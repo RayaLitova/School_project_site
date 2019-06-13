@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
+{% block head %}
 	<title>{{ data.question }}</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
-</head>
+{% endblock %}
 
-<body>
-
-	<div id="navbar">
-		<a href="/results">Results</a>
-		<a href="/add_temp">Add new</a>
-	</div>
-
+{% block body %}
 	{% if if_used %}
 
 	<p>You have already voted</p>
@@ -42,12 +34,4 @@
 			}
 		}
 	</script>
-	<script>
-		document.body.style.backgroundColor = localStorage.page;
-		document.getElementById('navbar').style.backgroundColor = localStorage.nav_color;
-		document.getElementById('h1').style.color = localStorage.txt;
-		document.getElementById('vote').style.color = localStorage.txt;
-	</script>
-</body>
-
-</html>
+{% endblock %}
