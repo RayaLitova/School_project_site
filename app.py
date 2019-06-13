@@ -26,15 +26,20 @@ poll_data = {
     'fields': x
 }
 
+
+def if_ip_is_used():
+    f = open(ip, 'r')
+    data = f.read()
+    f.close()
+    return request.environ.get('HTTP_X_REAL_IP', request.remote_addr) in data
+
 # -----------start-----------------
+
+
 @app.route('/')
 def root():
-    f = open(ip, 'r')
-    if request.environ.get('HTTP_X_REAL_IP', request.remote_addr) in f.read():
-        f.close()
-    else:
-        f.close()
-        return render_template('settings.html')
+    return render_template('settings.html')
+
 
 # -------------add.html-----------
 
@@ -43,16 +48,20 @@ def root():
 def add_temp():
     return render_template('add.html')
 
-#------------settings.html--------
+# ------------settings.html--------
+
+
 @app.route('/home')
 def home():
+<<<<<<< HEAD
     f = open(ip, 'r')
     if request.environ.get('HTTP_X_REAL_IP', request.remote_addr) in f.read():
         f.close()
         return "You can't vote two times form one device!!"
     else:
         f.close()
-        return render_template('poll.html', data=poll_data)
+        return render_template('poll.html', data=poll_data, if_used=if_ip_is_used())
+
 
 
 # -----------vote----------------
