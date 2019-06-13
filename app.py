@@ -32,7 +32,6 @@ def root():
     f = open(ip, 'r')
     if request.environ.get('HTTP_X_REAL_IP', request.remote_addr) in f.read():
         f.close()
-        return "You can't vote two times form one device!!"
     else:
         f.close()
         return render_template('settings.html')
@@ -53,7 +52,7 @@ def home():
         return "You can't vote two times form one device!!"
     else:
         f.close()
-       return render_template('poll.html', data=poll_data)
+        return render_template('poll.html', data=poll_data)
 
 
 # -----------vote----------------
