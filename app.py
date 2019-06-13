@@ -70,11 +70,11 @@ def poll():
     out = open(projects_file, 'a')
     out.write(vote + '\n')
     out.close()
-    f = open(ip_file, 'r')
-    f.close()
+
     f = open(ip_file, 'a')
     f.write(request.environ.get('HTTP_X_REAL_IP', request.remote_addr + '\n'))
     f.close()
+
     return render_template('thankyou.html', data=vote)
 
 # -----------------results----------------------
@@ -99,22 +99,18 @@ def show_results():
 @app.route('/add_new', methods=["POST"])
 def add_new():
     f = open(projects_file, 'r')
-    a = request.form['addnew']
+    project_name = request.form['addnew']
     data = f.read()
     f.close()
-    if a in data:
+
+    if project_name in data:
         return render_template('poll.html', data=poll_data)
 
     poll_data['fields'].append(request.form['addnew'])
+
     f = open(projects_file, 'a')
     f.write(request.form['addnew']+'\n')
     f.close()
-    f = open(ip_file, 'r')
-    if request.environ.get('HTTP_X_REAL_IP', request.remote_addr) in f.read():
-        f.close()
-        return "You can't vote two times from one device!!"
-    else:
-        return render_template('poll.html', data=poll_data)
 
 
 # ----------------------------------------------------------------
