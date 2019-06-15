@@ -11,22 +11,21 @@ ip_file = 'ip.txt'
 
 projects = []
 name = ''
-f = open(projects_file, 'r')
-for item in f.read():
-    if '\n' == item:
-        if name in projects:
-            name = ''
-        else:
-            projects.append(name)
-            name = ''
-    else:
-        name += item
-f.close()
 
-poll_data = {
-    'question': 'Vote for your favourite team ^^',
-    'fields': projects
-}
+
+def get_projects(projects, name):
+    projects_in_file = read_file(projects_file)
+    for project in projects_in_file:
+        if '\n' == project:
+            if name in projects:
+                name = ''
+            else:
+                projects.append(name)
+                name = ''
+        else:
+            name += project
+
+    return projects, name
 
 
 def if_ip_is_used():
@@ -34,6 +33,29 @@ def if_ip_is_used():
     data = f.read()
     f.close()
     return request.environ.get('HTTP_X_REAL_IP', request.remote_addr) in data
+
+
+def write_in_file(ffile, data):
+    f = open(ffile, 'a')
+    f.write(data)
+    f.close()
+
+
+def read_file(ffile):
+    f = open(ffile, 'r')
+    data = f.read()
+    f.close()
+
+    return data
+
+
+projects, name = get_projects(projects, name)
+
+poll_data = {
+    'question': 'Vote for your favourite team ^^',
+    'fields': projects
+}
+
 
 # -----------start-----------------
 
@@ -67,13 +89,10 @@ def poll():
     if vote is None:
         return render_template('poll.html', data=poll_data)
 
-    out = open(projects_file, 'a')
-    out.write(vote + '\n')
-    out.close()
+    write_in_file(projects_file, vote + '\n')
 
-    f = open(ip_file, 'a')
-    f.write(request.environ.get('HTTP_X_REAL_IP', request.remote_addr + '\n'))
-    f.close()
+    user_ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr + '\n')
+    write_in_file(ip_file, user_ip)
 
     return render_template('thankyou.html', data=vote)
 
@@ -83,13 +102,16 @@ def poll():
 @app.route('/results')
 def show_results():
     votes = {}
-    for f in poll_data['fields']:
-        votes[f] = -1
+
+    for pproject in poll_data['fields']:
+        votes[pproject] = -1
 
     f = open(projects_file, 'r')
     for line in f:
         vote = line.rstrip("\n")
         votes[vote] += 1
+
+    f.close()
 
     return render_template('results.html', data=poll_data, votes=votes)
 
@@ -98,19 +120,18 @@ def show_results():
 
 @app.route('/add_new', methods=["POST"])
 def add_new():
-    f = open(projects_file, 'r')
+
+    data = read_file(projects_file)
     project_name = request.form['addnew']
-    data = f.read()
-    f.close()
 
     if project_name in data:
         return render_template('poll.html', data=poll_data)
 
     poll_data['fields'].append(request.form['addnew'])
 
-    f = open(projects_file, 'a')
-    f.write(request.form['addnew']+'\n')
-    f.close()
+    write_in_file(projects_file, request.form['addnew']+'\n')
+
+    return render_template('poll.html', data=poll_data)
 
 
 # ----------------------------------------------------------------
