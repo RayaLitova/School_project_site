@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Settings</title>
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
-	</head>
-	<body style="background-color=#4286f4">
-		<div id="navbar">
-			<a href="/home">Home</a>
-			<a href="/results">Results</a>
-			<a href="/add_temp">Add new</a>
-		</div>
+{% extends "layout.html" %}
+
+{% block head %}
+	<title>Settings</title>
+{% endblock %}
+
+{% block body %}
 		Navbar color: <input type="color" id="navbar_color" value="#ff5baa"><br>
 		Text color: <input type="color" id="text_color" value="#000000"><br>
 		Page color: <input type="color" id="page_color" value="#4286f4"><br>
@@ -23,11 +18,6 @@
 				localStorage.nav_color=document.getElementById('navbar_color').value;
 				localStorage.txt=document.getElementById('text_color').value;
 				localStorage.page=document.getElementById('page_color').value;
-			}
-			document.getElementById('navbar_color').value=localStorage.nav_color;
-			document.getElementById('text_color').value=localStorage.txt;
-			document.getElementById('page_color').value=localStorage.page;
-			
+			}	
 		</script>
-	</body>
-</html>
+{% endblock %}
