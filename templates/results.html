@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block body %}
-    <h1 id='h1'>Results</h1>
+<h1 class='h1'>Results</h1>
 
-    <ul id='results'>
-        {% for e in votes %}
-        <li>{{ e }} -- {{ votes[e] }}</li>
-        {% endfor %}
-    </ul>
+<ul id='results'>
+    {% for e in votes %}
+    <li>{{ e }} -- {{ votes[e] }}</li>
+    {% endfor %}
+</ul>
 {% endblock %}

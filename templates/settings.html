@@ -1,23 +1,23 @@
 {% extends "layout.html" %}
 
 {% block head %}
-	<title>Settings</title>
+<title>Settings</title>
 {% endblock %}
 
 {% block body %}
-		Navbar color: <input type="color" id="navbar_color" value="#ff5baa"><br>
-		Text color: <input type="color" id="text_color" value="#000000"><br>
-		Page color: <input type="color" id="page_color" value="#4286f4"><br>
-		
-		<script>
-			if(localStorage.nav_color==null){
-				localStorage.setItem("nav_color", "#ff5baa");
-				localStorage.setItem("txt", "#000000");
-				localStorage.setItem("page", "#4286f4");
-			}else{
-				localStorage.nav_color=document.getElementById('navbar_color').value;
-				localStorage.txt=document.getElementById('text_color').value;
-				localStorage.page=document.getElementById('page_color').value;
-			}	
-		</script>
+Navbar color: <input type="color" id="navbar_color" value="#7e7579"><br>
+Text color: <input type="color" id="text_color" value="#000000"><br>
+Page color: <input type="color" id="page_color" value="#ffffff"><br>
+
+<script>
+	if (localStorage.nav_color == null) {
+		localStorage.setItem("nav_color", "#7e7579");
+		localStorage.setItem("txt", "#000000");
+		localStorage.setItem("page", "#ffffff");
+	} else {
+		localStorage.nav_color = document.getElementById('navbar_color').value;
+		localStorage.txt = document.getElementById('text_color').value;
+		localStorage.page = document.getElementById('page_color').value;
+	}	
+</script>
 {% endblock %}

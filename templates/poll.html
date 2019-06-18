@@ -1,37 +1,37 @@
 {% extends "layout.html" %}
 
 {% block head %}
-	<title>{{ data.question }}</title>
+<title>{{ data.question }}</title>
 {% endblock %}
 
 {% block body %}
-	{% if if_used %}
+{% if if_used %}
 
-	<p>You have already voted</p>
+<p>You have already voted</p>
 
 
-	{% else %}
-	<h1 id='h1'>{{ data.question }}</h1>
-	<form action="/poll" id='vote'>
-		{% for e in data.fields %}
-		<input type="radio" id='field' name="field" value="{{ e }}"> {{ e }}<br>
-		{% endfor %}
-		<br>
-		<input type="submit" value="Vote" />
-	</form>
-	{% endif %}
-	<script>
-		window.onscroll = myFunction();
+{% else %}
+<h1 class='h1'>{{ data.question }}</h1>
+<form action="/poll" id='vote'>
+	{% for e in data.fields %}
+	<input type="radio" id='field' name="field" value="{{ e }}"> {{ e }}<br>
+	{% endfor %}
+	<br>
+	<input type="submit" value="Vote" />
+</form>
+{% endif %}
+<script>
+	window.onscroll = myFunction();
 
-		var navbar = document.getElementById("navbar");
-		var sticky = navbar.offsetTop;
+	var navbar = document.getElementById("navbar");
+	var sticky = navbar.offsetTop;
 
-		function myFunction() {
-			if (window.pageYOffset >= sticky) {
-				navbar.classList.add("sticky")
-			} else {
-				navbar.classList.remove("sticky");
-			}
+	function myFunction() {
+		if (window.pageYOffset >= sticky) {
+			navbar.classList.add("sticky")
+		} else {
+			navbar.classList.remove("sticky");
 		}
-	</script>
+	}
+</script>
 {% endblock %}

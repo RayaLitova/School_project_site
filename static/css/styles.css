@@ -1,10 +1,16 @@
 body{
-	background-color: #4286f4;
+	background-color: white;
 	}
+
+#field{
+  border-style: double;
+  border-width: 2px;
+  border-color: black
+}
 
 #navbar {
   overflow: hidden;
-  background-color: #ff5baa;
+  background-color: #7e7579;
 }
 
 #navbar a {
