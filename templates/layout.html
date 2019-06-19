@@ -7,6 +7,9 @@
 </head>
 
 	<body>
+		<img src="{{ url_for('static', filename='img/body_frame.png')}}" id='left' style="float: left;">
+		<img src="{{ url_for('static', filename='img/body_frame_right.png')}}" id='right' style="float: right;">
+
 		<div id="navbar">
 		  <a href="/home">Home</a>
 		  <a href="/add_temp">Add new</a>
@@ -15,6 +18,7 @@
 		{% block body %}
 		{% endblock %}
 		<script src="{{ url_for('static', filename='js/custom_settings.js')}}"></script>
+
 </body>
 
 </html>

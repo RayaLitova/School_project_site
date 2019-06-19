@@ -5,11 +5,13 @@
 {% endblock %}
 
 {% block body %}
-<h1 class='h1'>Results</h1>
+
 
 <ul id='results'>
+	<h1>Results</h1>
     {% for e in votes %}
     <li>{{ e }} -- {{ votes[e] }}</li>
+	<br>
     {% endfor %}
 </ul>
 {% endblock %}

@@ -2,10 +2,16 @@ body{
 	background-color: white;
 	}
 
-#field{
-  border-style: double;
-  border-width: 2px;
-  border-color: black
+
+h1{
+	text-align: center;
+}
+ul{
+	text-align: center;
+	padding=5px;
+}
+input{
+	text-align: center;
 }
 
 #navbar {

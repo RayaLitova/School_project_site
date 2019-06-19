@@ -7,17 +7,21 @@
 {% block body %}
 {% if if_used %}
 
-<p>You have already voted</p>
+<p id='results'>You have already voted</p>
 
 
 {% else %}
-<h1 class='h1'>{{ data.question }}</h1>
+<h1 id='results'>{{ data.question }}</h1>
 <form action="/poll" id='vote'>
+<ul id='results'>
 	{% for e in data.fields %}
-	<input type="radio" id='field' name="field" value="{{ e }}"> {{ e }}<br>
+	<li><input type="radio" id='field' name='field' value='{{ e }}'>{{ e }}</li>
+	<br>
 	{% endfor %}
 	<br>
 	<input type="submit" value="Vote" />
+
+</ul>
 </form>
 {% endif %}
 <script>
